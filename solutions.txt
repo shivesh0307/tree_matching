@@ -1,0 +1,11 @@
+This approach uses an additional header and server-side logic in your application to handle the domain mismatch:
+
+a. AVI Configuration:
+
+  - **Add Forwarded Header:** Configure AVI to add a custom header (e.g., `X-Forwarded-Host`) to the request forwarded to your application. This header should contain the original Host header value (`myapp.com`).
+b. Application Logic:
+
+  - **Check Forwarded Header:** In your application code (controllers, middleware, etc.), check for the presence of the `X-Forwarded-Host` header (or the configured header).
+  - **Rewrite URI Based on Header:** If the `X-Forwarded-Host` header exists, use its value (which is `myapp.com`) to rewrite the redirect URI path in the OIDC response. Change the domain part of the URI to match the original domain.
+
+pen_spark
